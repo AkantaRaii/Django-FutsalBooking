@@ -4,8 +4,7 @@ from .models import user,futsal_court
 from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 def home(request):
-    b1=BookingForm()
-    return render(request,"base.html",{'form':b1})
+    return render(request,"home.html")
 def createfutsal(request):
     if request.method=="POST":
         f1=futsalforms(request.POST)
