@@ -6,14 +6,12 @@ from django.contrib.auth.models import User
 #     fname=forms.CharField(max_length=50)
 #     lname=forms.CharField(max_length=50,required=False)
 #     phone=forms.CharField(max_length=10)
-class userform(UserCreationForm):
+class signupform(UserCreationForm):
     user_phone = forms.CharField(required=True, max_length=10)
-    first_name = forms.CharField(required=True, max_length=40)
-    last_name = forms.CharField(required=True, max_length=40)
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'user_phone', 'password1', 'password2']
+        fields = ['username', 'user_phone', 'password1', 'password2']
 class futsalforms(forms.Form):
     futsal_name=forms.CharField(max_length=50)
     futsal_court_phone=forms.CharField(max_length=10)

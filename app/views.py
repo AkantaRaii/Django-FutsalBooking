@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,redirect
-from .form import userform,futsalforms,searchform,BookingForm
+from .form import signupform,futsalforms,searchform,BookingForm
 from .models import user,futsal_court
 from django.contrib.auth import login, logout, authenticate
 # Create your views here.
@@ -23,17 +23,23 @@ def createfutsal(request):
 def signup(request):
     if request.method == 'POST':
         # Extract form data
-        form=userform(request.POST)
+        form=signupform(request.POST)
         if form.is_valid():
             user=form.save()
-            login(request,user)
-            return redirect("/") # Replace 'success.html' with your actual success template
+            return redirect("home   ") # Replace 'success.html' with your actual success template
     else:
-        form=userform()
+        form=signupform()
     # Handle GET request or other cases where the method is not POST
     return render(request, 'signup.html',{'form':form})
-# def login(request):
-#     if request.method=="POST":
-#         return 
-#     else:
-#         return render(request,"login.html")
+def login_user(request):
+    if request.method=="POST":
+        us=request.POST["username"]
+        pw=request.POST["password"]
+        user=authenticate(request,username=us,password=pw)
+        if user:
+            login(request,user)
+            return redirect('home')
+    else:
+        return render(request,"login.html") 
+    return render(request,"login.html") 
+    
