@@ -6,9 +6,15 @@
     {% csrf_token %}
     <input type="text" name="username" placeholder="Username">
     <br>
+    <br>
     <input type="password" name="password" placeholder="password">
     <br>
+    <br>
     <button type "submit" class ="btn btn-success">Login</button>
+    <br>
+    <br>
+    <p> don't have account?<a href="{% url 'signup'%}">register</a></p>
+
 </form>
 </div>
 {%endblock%}

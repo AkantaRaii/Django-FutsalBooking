@@ -1,5 +1,5 @@
 from django import forms
-from .models import booking,user
+from .models import booking
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 # class userform(forms.Form):
@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 #     lname=forms.CharField(max_length=50,required=False)
 #     phone=forms.CharField(max_length=10)
 class signupform(UserCreationForm):
+    
     user_phone = forms.CharField(required=True, max_length=10)
 
     class Meta:

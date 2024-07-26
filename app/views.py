@@ -1,10 +1,13 @@
 from django.shortcuts import render,HttpResponse,redirect
 from .form import signupform,futsalforms,searchform,BookingForm
-from .models import user,futsal_court
+from .models import futsal_court,Profile
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 # Create your views here.
 def home(request):
-    return render(request,"home.html")
+    users=User.objects.all()
+    futsals=futsal_court.objects.all()
+    return render(request,"home.html",{'users': users,'futsals':futsals})
 def createfutsal(request):
     if request.method=="POST":
         f1=futsalforms(request.POST)
@@ -26,7 +29,10 @@ def signup(request):
         form=signupform(request.POST)
         if form.is_valid():
             user=form.save()
-            return redirect("home   ") # Replace 'success.html' with your actual success template
+            phone=form.cleaned_data["user_phone"]
+            obj=Profile(user=user,phone=phone)
+            obj.save()
+            return redirect("home") # Replace 'success.html' with your actual success template
     else:
         form=signupform()
     # Handle GET request or other cases where the method is not POST
@@ -42,4 +48,7 @@ def login_user(request):
     else:
         return render(request,"login.html") 
     return render(request,"login.html") 
-    
+def logout_user(request):
+    if request.user.is_authenticated:
+        logout(request)
+        return redirect('home')
