@@ -7,6 +7,10 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
        <div class="navbar-nav ms-auto col-md-1 " >
         {% if user.is_authenticated%}
+        <div class="container">
+        <a class="nav-link" href="{% url 'addfutsal' %}">Add Futsal</a>
+        </div>
+
         <ul class="nav nav-tabs">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{user.username}}</a>
@@ -14,7 +18,8 @@
             <li><a class="dropdown-item" href="#">Profile</a></li>
             <li><a class=" dropdown-item nav-link" href="{% url 'logout' %}">logout</a></li>
           </ul>
-        </ul> 
+        </ul>
+        
         {% else %}
           <a class="nav-link" href="{% url 'login' %}">Login</a>
         {% endif %}

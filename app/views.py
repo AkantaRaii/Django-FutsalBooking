@@ -52,3 +52,12 @@ def logout_user(request):
     if request.user.is_authenticated:
         logout(request)
         return redirect('home')
+    
+def addfutsal(request):
+    if request.method=='POST':
+        form=futsalforms(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    form=futsalforms()
+    return render(request,'addfutsal.html',{'form':form})
