@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import timedelta 
 # Create your models here.
 class futsal_court(models.Model):
     futsal_court_id=models.AutoField(primary_key=True)
@@ -16,5 +17,12 @@ class Profile(models.Model):
 class booking(models.Model):
     booking_id=models.AutoField(primary_key=True)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    start_time=models.DateTimeField()
+    futsal_court=models.ForeignKey(futsal_court,on_delete=models.CASCADE)
+    start_time = models.DateTimeField()
     duration = models.PositiveIntegerField()
+    @property
+    def end_time(self):
+        return self.start_time + timedelta(minutes=self.duration)
+
+    
+ 
