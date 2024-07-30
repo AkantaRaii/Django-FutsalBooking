@@ -60,4 +60,9 @@ def addfutsal(request):
             form.save()
             return redirect('home')
     form=futsalforms()
-    return render(request,'addfutsal.html',{'form':form})
+    return render(request,'addfutsal.html',{'form':form})\
+    
+
+def bookfutsal(request):
+    form=BookingForm()
+    return render(request,'book_futsal.html',{'form':form})

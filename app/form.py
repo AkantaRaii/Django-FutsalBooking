@@ -25,7 +25,6 @@ class searchform(forms.Form):
     query=forms.CharField(label='search')
 
 
-class BookingForm(forms.ModelForm):
-    class Meta:
-        model = booking
-        fields = ['user', 'start_time','duration']
+class BookingForm(forms.Form):
+    start_time = forms.DateTimeField()
+    duration = forms.IntegerField()
