@@ -24,7 +24,6 @@ class futsalforms(forms.ModelForm):
 class searchform(forms.Form):
     query=forms.CharField(label='search')
 
-
 class BookingForm(forms.Form):
     start_time = forms.DateTimeField()
     duration = forms.IntegerField()

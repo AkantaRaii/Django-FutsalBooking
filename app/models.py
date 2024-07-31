@@ -17,12 +17,9 @@ class Profile(models.Model):
 class booking(models.Model):
     booking_id=models.AutoField(primary_key=True)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    futsal_court=models.ForeignKey(futsal_court,on_delete=models.CASCADE)
+    futsal_court = models.ForeignKey(futsal_court, on_delete=models.CASCADE, null=True)
     start_time = models.DateTimeField()
     duration = models.PositiveIntegerField()
-    @property
-    def end_time(self):
-        return self.start_time + timedelta(minutes=self.duration)
 
     
  

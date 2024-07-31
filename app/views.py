@@ -1,8 +1,9 @@
 from django.shortcuts import render,HttpResponse,redirect
 from .form import signupform,futsalforms,searchform,BookingForm
-from .models import futsal_court,Profile
+from .models import futsal_court,Profile,booking
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
+from django.http import Http404
 # Create your views here.
 def home(request):
     users=User.objects.all()
@@ -63,6 +64,22 @@ def addfutsal(request):
     return render(request,'addfutsal.html',{'form':form})\
     
 
-def bookfutsal(request):
+def bookfutsal(request,uid,fid):
+    print("a")
+    print(uid,fid)
+    try:
+        user=User.objects.get(id=uid)
+        court=futsal_court.objects.get(futsal_court_id=fid)
+
+    except Exception as e:
+        raise Http404("An unexpected error occurred.") 
+    if request.method=="POST":
+        form=BookingForm(request.POST)
+        print("b")
+        start_time = request.POST['start_time']
+        duration = request.POST['duration']
+        book=booking(user=user,futsal_court=court,start_time=start_time,duration=duration)
+        book.save()
+        return redirect('home')
     form=BookingForm()
     return render(request,'book_futsal.html',{'form':form})
